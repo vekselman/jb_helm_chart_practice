@@ -1,0 +1,9 @@
+dependencies:
+- name: kafka
+  repository: file://../kafka
+  version: 1.0.0
+- name: zookeeper
+  repository: file://../zookeeper
+  version: 1.0.0
+digest: sha256:7a82421ceaf9da336e0160460d8476aac7cecb23d91b94500810ba8032493dc9
+generated: "2021-11-23T17:43:58.8534677+02:00"
