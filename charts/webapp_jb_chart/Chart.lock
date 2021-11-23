@@ -5,5 +5,8 @@ dependencies:
 - name: zookeeper
   repository: file://../zookeeper
   version: 1.0.0
-digest: sha256:7a82421ceaf9da336e0160460d8476aac7cecb23d91b94500810ba8032493dc9
-generated: "2021-11-23T17:43:58.8534677+02:00"
+- name: database
+  repository: file://../database
+  version: 1.0.0
+digest: sha256:764df00df82db10552f53d1926f4ada160385e20957d1f332d43ba500905a879
+generated: "2021-11-23T17:49:22.580602+02:00"
