@@ -1,5 +1,5 @@
 apiVersion: v2
-name: database
+name: webapp-jb-chart
 description: A Helm chart for Kubernetes
 
 # A chart can be either an 'application' or a 'library' chart.
@@ -22,3 +22,17 @@ version: 1.0.0
 # follow Semantic Versioning. They should reflect the version the application is using.
 # It is recommended to use it with quotes.
 appVersion: "1.0.0"
+
+dependencies:
+  - name: kafka
+    version: 1.0.0
+    repository: file://../kafka
+    condition: kakfa.enabled
+  - name: zookeeper
+    version: 1.0.0
+    repository: file://../zookeeper
+    condition: zookeeper.enabled
+#  - name: postgresql
+#    version: 8.6.4
+#    repository: https://charts.bitnami.com/bitnami
+#    condition: postgresql.enabled

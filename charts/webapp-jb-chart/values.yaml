@@ -1,14 +1,14 @@
-# Default values for database.
+# Default values for webapp_jb_chart.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
 replicaCount: 1
 
 image:
-  repository: postgres
+  repository: nginx
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "10.4-alpine"
+  tag: "1.21.4-alpine"
 
 imagePullSecrets: []
 nameOverride: ""
@@ -16,7 +16,7 @@ fullnameOverride: ""
 
 serviceAccount:
   # Specifies whether a service account should be created
-  create: false
+  create: true
   # Annotations to add to the service account
   annotations: {}
   # The name of the service account to use.
@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 8000
+  port: 80
 
 ingress:
   enabled: false
@@ -80,3 +80,35 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+### Subcharts ###
+postgresql:
+  enabled: true
+  global:
+    postgresql:
+      existingSecret: postgres-secret
+      servicePort: 8000
+      postgresqlUsername: alphaone
+#  initdbScripts:
+#    - schema.sql: |
+#        CREATE TABLE sales (
+#          id          bigserial,
+#          uuid        uuid,
+#          total       numeric(7, 2) DEFAULT 0.0,
+#          sale_date   timestamp with time zone NOT NULL,
+#          created_at  timestamp with time zone NOT NULL DEFAULT NOW()
+#        );
+#    - seed.sql: |
+#        INSERT INTO sales
+#        (uuid, total, sale_date, created_at)
+#        VALUES('675867b9-e318-44be-8560-774e59601340', 10.66, now(), now());
+zookeeper:
+  enabled: true
+  replicaCount: 1
+kafka:
+  enabled: true
+  replicaCount: 1
+
+
+
+
