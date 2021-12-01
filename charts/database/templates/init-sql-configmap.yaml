@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "database.fullname" . }}-init-script
+  labels:
+    app.kubernetes.io/component: {{ include "database.fullname" . }}
+  {{- include "database.labels" . | nindent 4 }}
+data:
+  schema.sql: |
+    CREATE TABLE sales (
+    id          bigserial,
+    uuid        uuid,
+    total       numeric(7, 2) DEFAULT 0.0,
+    sale_date   timestamp with time zone NOT NULL,
+    created_at  timestamp with time zone NOT NULL DEFAULT NOW()
+    );
+  seed.sql: |
+    INSERT INTO sales
+    (uuid, total, sale_date, created_at)
+    VALUES('675867b9-e318-44be-8560-774e59601340', 10.66, now(), now());
